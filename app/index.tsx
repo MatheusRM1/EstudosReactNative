@@ -1,13 +1,39 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
+
+  function isNull() {
+    return name === "" && phone === "" && date === "";
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.center]}>
       <View style={styles.forms}>
         <Text style={styles.title}>Formulário</Text>
-        <TextInput style={styles.input} />
-        <TextInput style={styles.input} keyboardType="numeric" />
-        <TextInput style={styles.input} />
+        <TextInput
+          style={styles.input}
+          placeholder="Insira seu Nome"
+          value={name}
+          onChangeText={(e) => setName(e)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Insira seu Telefone"
+          keyboardType="numeric"
+          value={phone}
+          onChangeText={(e) => setPhone(e)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Insira sua Data de Nascimento"
+          value={date}
+          onChangeText={(e) => setDate(e)}
+        />
+        <Button title="Enviar" disabled={isNull()} />
       </View>
     </View>
   );
@@ -16,8 +42,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#000",
     minHeight: "100%",
     width: "100%",
@@ -28,7 +52,7 @@ const styles = StyleSheet.create({
   },
   forms: {
     width: "80%",
-    height: "40%",
+    height: "50%",
     padding: 20,
     backgroundColor: "#fff",
     justifyContent: "center",
@@ -40,5 +64,9 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
     borderRadius: 10,
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
