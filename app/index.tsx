@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  ToastAndroid,
+  View,
+} from "react-native";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -7,7 +14,15 @@ export default function Home() {
   const [date, setDate] = useState("");
 
   function isNull() {
-    return name === "" && phone === "" && date === "";
+    return name === "" || phone === "" || date === "";
+  }
+
+  function showToast() {
+    ToastAndroid.showWithGravity(
+      `Nome: ${name} Tel: ${phone} Data: ${date}`,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+    );
   }
 
   return (
@@ -33,7 +48,7 @@ export default function Home() {
           value={date}
           onChangeText={(e) => setDate(e)}
         />
-        <Button title="Enviar" disabled={isNull()} />
+        <Button title="Enviar" disabled={isNull()} onPress={showToast} />
       </View>
     </View>
   );
