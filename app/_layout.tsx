@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFonts } from 'expo-font';
-import { View } from 'react-native';
-import Home from './index';
+import { Stack} from 'expo-router';
 
 
 export default function RootLayout() {
@@ -15,8 +14,8 @@ export default function RootLayout() {
   }
 
   return (
-    <View>
-      <Home />
-    </View>
+    <Stack screenOptions={{headerShown: false}}>
+      <Stack.Screen name='(tabs)'/>
+    </Stack>
   );
 }

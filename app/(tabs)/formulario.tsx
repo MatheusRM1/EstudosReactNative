@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-export default function Home() {
+export default function Formulario() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
