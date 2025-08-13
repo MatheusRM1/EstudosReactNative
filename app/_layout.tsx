@@ -1,21 +1,16 @@
-import React from 'react';
-import { useFonts } from 'expo-font';
-import { Stack} from 'expo-router';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./index";
+import Formulario from "./formulario";
+import Produto from "./produto";
 
+  const Tabs = createBottomTabNavigator();
 
-export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
-  return (
-    <Stack screenOptions={{headerShown: false}}>
-      <Stack.Screen name='(tabs)'/>
-    </Stack>
+export default function HomeTabs() {
+    return (
+  <Tabs.Navigator screenOptions={{ headerShown: false, tabBarIcon: () => null }}>
+    <Tabs.Screen name="Home" component={Home} />
+    <Tabs.Screen name="Formulário" component={Formulario} />
+    <Tabs.Screen name="Produto" component={Produto} />
+  </Tabs.Navigator>
   );
 }
