@@ -18,7 +18,7 @@ type ProdutoType = {
 export default function Produto() {
   const [produto, setProduto] = useState<ProdutoType>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,24 +40,10 @@ export default function Produto() {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Carregando produto...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>Erro: {error}</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
+      {loading && <Text style={styles.text}>Carregando...</Text>}
+      {error && <Text style={styles.errorText}>Erro: {error}</Text>}
       <Text style={styles.title}>Página do Produto</Text>
       <Text style={styles.info}>Nome: {produto?.nome || "Sem nome"}</Text>
       <Text style={styles.info}>Linha: {produto?.linha}</Text>
