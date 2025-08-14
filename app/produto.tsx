@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
+type ProdutoType = {
+  nome: string;
+  codigoZen: string;
+  codigo: string;
+  descricao: string;
+  ordem: number;
+  linha: string;
+  imgProduto: string;
+  plataforma: string;
+  linkProduto: string;
+  destaque: string;
+  lancamento: boolean;
+};
+
 export default function Produto() {
-  const [produto, setProduto] = useState<any>(null);
+  const [produto, setProduto] = useState<ProdutoType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,12 +59,12 @@ export default function Produto() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Página do Produto</Text>
-      <Text style={styles.info}>Nome: {produto.nome || "Sem nome"}</Text>
-      <Text style={styles.info}>Linha: {produto.linha}</Text>
-      <Text style={styles.info}>Código: {produto.codigoZen}</Text>
-      <Text style={styles.info}>Descrição: {produto.descricao}</Text>
-      <Image source={{ uri: produto.imgProduto }} style={styles.image} />
-      <Text style={styles.url}>Link do Produto: {produto.linkProduto}</Text>
+      <Text style={styles.info}>Nome: {produto?.nome || "Sem nome"}</Text>
+      <Text style={styles.info}>Linha: {produto?.linha}</Text>
+      <Text style={styles.info}>Código: {produto?.codigoZen}</Text>
+      <Text style={styles.info}>Descrição: {produto?.descricao}</Text>
+      <Image source={{ uri: produto?.imgProduto }} style={styles.image} />
+      <Text style={styles.url}>Link do Produto: {produto?.linkProduto}</Text>
     </View>
   );
 }
