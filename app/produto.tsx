@@ -28,12 +28,12 @@ export default function Produto() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Página do Produto</Text>
-      <Text style={styles.info}>Nome: {data.nome || "Sem nome"}</Text>
-      <Text style={styles.info}>Linha: {data.linha}</Text>
-      <Text style={styles.info}>Código: {data.codigoZen}</Text>
-      <Text style={styles.info}>Descrição: {data.descricao}</Text>
-      <Image source={{ uri: data.imgProduto }} style={styles.image} />
-      <Text style={styles.url}>Link do Produto: {data.linkProduto}</Text>
+      <Text style={styles.info}>Nome: {data?.nome || "Sem nome"}</Text>
+      <Text style={styles.info}>Linha: {data?.linha}</Text>
+      <Text style={styles.info}>Código: {data?.codigoZen}</Text>
+      <Text style={styles.info}>Descrição: {data?.descricao}</Text>
+      <Image source={{ uri: data?.imgProduto }} style={styles.image} />
+      <Text style={styles.url}>Link do Produto: {data?.linkProduto}</Text>
     </View>
   );
 }
