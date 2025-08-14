@@ -9,24 +9,10 @@ export default function Produto() {
     queryFn: getProduto
   })
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Carregando produto...</Text>
-      </View>
-    );
-  }
-
-  if (isError) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>Erro: {error.message}</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.container}>
+      {isLoading && <Text style={styles.text}>Carregando...</Text>}
+      {isError && <Text style={styles.errorText}>Erro: {error.message}</Text>}
       <Text style={styles.title}>Página do Produto</Text>
       <Text style={styles.info}>Nome: {data?.nome || "Sem nome"}</Text>
       <Text style={styles.info}>Linha: {data?.linha}</Text>
