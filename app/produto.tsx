@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function Produto() {
 
-  const {data, isLoading, isError, error} = useQuery({
+  const {data, isLoading, error} = useQuery({
     queryKey: ["produto"],
     queryFn: getProduto
   })
@@ -12,7 +12,7 @@ export default function Produto() {
   return (
     <View style={styles.container}>
       {isLoading && <Text style={styles.text}>Carregando...</Text>}
-      {isError && <Text style={styles.errorText}>Erro: {error.message}</Text>}
+      {error && <Text style={styles.errorText}>Erro: {error.message}</Text>}
       <Text style={styles.title}>Página do Produto</Text>
       <Text style={styles.info}>Nome: {data?.nome || "Sem nome"}</Text>
       <Text style={styles.info}>Linha: {data?.linha}</Text>
