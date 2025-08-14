@@ -1,32 +1,15 @@
-import { useEffect, useState } from "react";
+import { getProduto } from "@/hooks/useProduto";
+import { useQuery } from "@tanstack/react-query";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function Produto() {
-  const [produto, setProduto] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://zensa-api.nuai.com.br/catalogo/pesquisa-rapida?codigo=6011"
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json();
-        setProduto(result.data[0]);
-        setLoading(false);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        setError(error instanceof Error ? error.message : "Erro desconhecido");
-      }
-    };
-    fetchData();
-  }, []);
+  const {data, isLoading, isError, error} = useQuery({
+    queryKey: ["produto"],
+    queryFn: getProduto
+  })
 
-  if (loading) {
+  if (isLoading) {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Carregando produto...</Text>
@@ -34,10 +17,10 @@ export default function Produto() {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>Erro: {error}</Text>
+        <Text style={styles.errorText}>Erro: {error.message}</Text>
       </View>
     );
   }
@@ -45,12 +28,12 @@ export default function Produto() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Página do Produto</Text>
-      <Text style={styles.info}>Nome: {produto.nome || "Sem nome"}</Text>
-      <Text style={styles.info}>Linha: {produto.linha}</Text>
-      <Text style={styles.info}>Código: {produto.codigoZen}</Text>
-      <Text style={styles.info}>Descrição: {produto.descricao}</Text>
-      <Image source={{ uri: produto.imgProduto }} style={styles.image} />
-      <Text style={styles.url}>Link do Produto: {produto.linkProduto}</Text>
+      <Text style={styles.info}>Nome: {data.nome || "Sem nome"}</Text>
+      <Text style={styles.info}>Linha: {data.linha}</Text>
+      <Text style={styles.info}>Código: {data.codigoZen}</Text>
+      <Text style={styles.info}>Descrição: {data.descricao}</Text>
+      <Image source={{ uri: data.imgProduto }} style={styles.image} />
+      <Text style={styles.url}>Link do Produto: {data.linkProduto}</Text>
     </View>
   );
 }
